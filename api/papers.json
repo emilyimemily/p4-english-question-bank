@@ -1,0 +1,1073 @@
+[
+ {
+  "id": "2021_CA1_ACSJ",
+  "year": 2021,
+  "school": "ACSJ",
+  "exam": "CA1",
+  "title": "2021 ACSJ CA1"
+ },
+ {
+  "id": "2021_SA1_ACSJ",
+  "year": 2021,
+  "school": "ACSJ",
+  "exam": "SA1",
+  "title": "2021 ACSJ SA1"
+ },
+ {
+  "id": "2021_SA2_ACSJ",
+  "year": 2021,
+  "school": "ACSJ",
+  "exam": "SA2",
+  "title": "2021 ACSJ SA2"
+ },
+ {
+  "id": "2021_CA2_ACSP",
+  "year": 2021,
+  "school": "ACSP",
+  "exam": "CA2",
+  "title": "2021 ACSP CA2"
+ },
+ {
+  "id": "2021_SA1_ACSP",
+  "year": 2021,
+  "school": "ACSP",
+  "exam": "SA1",
+  "title": "2021 ACSP SA1"
+ },
+ {
+  "id": "2021_SA2_ACSP",
+  "year": 2021,
+  "school": "ACSP",
+  "exam": "SA2",
+  "title": "2021 ACSP SA2"
+ },
+ {
+  "id": "2021_CA1_CatholicHigh",
+  "year": 2021,
+  "school": "CatholicHigh",
+  "exam": "CA1",
+  "title": "2021 CatholicHigh CA1"
+ },
+ {
+  "id": "2021_SA1_CatholicHigh",
+  "year": 2021,
+  "school": "CatholicHigh",
+  "exam": "SA1",
+  "title": "2021 CatholicHigh SA1"
+ },
+ {
+  "id": "2021_SA2_CatholicHigh",
+  "year": 2021,
+  "school": "CatholicHigh",
+  "exam": "SA2",
+  "title": "2021 CatholicHigh SA2"
+ },
+ {
+  "id": "2021_CA1_HenryPark",
+  "year": 2021,
+  "school": "HenryPark",
+  "exam": "CA1",
+  "title": "2021 HenryPark CA1"
+ },
+ {
+  "id": "2021_CA2_HenryPark",
+  "year": 2021,
+  "school": "HenryPark",
+  "exam": "CA2",
+  "title": "2021 HenryPark CA2"
+ },
+ {
+  "id": "2021_SA2_HenryPark",
+  "year": 2021,
+  "school": "HenryPark",
+  "exam": "SA2",
+  "title": "2021 HenryPark SA2"
+ },
+ {
+  "id": "2021_SA2_MGS",
+  "year": 2021,
+  "school": "MGS",
+  "exam": "SA2",
+  "title": "2021 MGS SA2"
+ },
+ {
+  "id": "2021_SA1_MarisStella",
+  "year": 2021,
+  "school": "MarisStella",
+  "exam": "SA1",
+  "title": "2021 MarisStella SA1"
+ },
+ {
+  "id": "2021_SA2_MarisStella",
+  "year": 2021,
+  "school": "MarisStella",
+  "exam": "SA2",
+  "title": "2021 MarisStella SA2"
+ },
+ {
+  "id": "2021_CA1_NanHua",
+  "year": 2021,
+  "school": "NanHua",
+  "exam": "CA1",
+  "title": "2021 NanHua CA1"
+ },
+ {
+  "id": "2021_CA2_NanHua",
+  "year": 2021,
+  "school": "NanHua",
+  "exam": "CA2",
+  "title": "2021 NanHua CA2"
+ },
+ {
+  "id": "2021_SA1_NanHua",
+  "year": 2021,
+  "school": "NanHua",
+  "exam": "SA1",
+  "title": "2021 NanHua SA1"
+ },
+ {
+  "id": "2021_SA2_NanHua",
+  "year": 2021,
+  "school": "NanHua",
+  "exam": "SA2",
+  "title": "2021 NanHua SA2"
+ },
+ {
+  "id": "2021_SA2_Nanyang",
+  "year": 2021,
+  "school": "Nanyang",
+  "exam": "SA2",
+  "title": "2021 Nanyang SA2"
+ },
+ {
+  "id": "2021_SA1_Raffles",
+  "year": 2021,
+  "school": "Raffles",
+  "exam": "SA1",
+  "title": "2021 Raffles SA1"
+ },
+ {
+  "id": "2021_SA2_Raffles",
+  "year": 2021,
+  "school": "Raffles",
+  "exam": "SA2",
+  "title": "2021 Raffles SA2"
+ },
+ {
+  "id": "2021_SA1_RedSwastika",
+  "year": 2021,
+  "school": "RedSwastika",
+  "exam": "SA1",
+  "title": "2021 RedSwastika SA1"
+ },
+ {
+  "id": "2021_SA2_RedSwastika",
+  "year": 2021,
+  "school": "RedSwastika",
+  "exam": "SA2",
+  "title": "2021 RedSwastika SA2"
+ },
+ {
+  "id": "2021_SA1_Rosyth",
+  "year": 2021,
+  "school": "Rosyth",
+  "exam": "SA1",
+  "title": "2021 Rosyth SA1"
+ },
+ {
+  "id": "2021_SA2_Rosyth",
+  "year": 2021,
+  "school": "Rosyth",
+  "exam": "SA2",
+  "title": "2021 Rosyth SA2"
+ },
+ {
+  "id": "2021_SA1_SCGS",
+  "year": 2021,
+  "school": "SCGS",
+  "exam": "SA1",
+  "title": "2021 SCGS SA1"
+ },
+ {
+  "id": "2021_SA2_SCGS",
+  "year": 2021,
+  "school": "SCGS",
+  "exam": "SA2",
+  "title": "2021 SCGS SA2"
+ },
+ {
+  "id": "2021_SA2_StNicholas",
+  "year": 2021,
+  "school": "StNicholas",
+  "exam": "SA2",
+  "title": "2021 StNicholas SA2"
+ },
+ {
+  "id": "2021_CA1_TaoNan",
+  "year": 2021,
+  "school": "TaoNan",
+  "exam": "CA1",
+  "title": "2021 TaoNan CA1"
+ },
+ {
+  "id": "2021_CA2_TaoNan",
+  "year": 2021,
+  "school": "TaoNan",
+  "exam": "CA2",
+  "title": "2021 TaoNan CA2"
+ },
+ {
+  "id": "2021_SA1_TaoNan",
+  "year": 2021,
+  "school": "TaoNan",
+  "exam": "SA1",
+  "title": "2021 TaoNan SA1"
+ },
+ {
+  "id": "2021_SA2_TaoNan",
+  "year": 2021,
+  "school": "TaoNan",
+  "exam": "SA2",
+  "title": "2021 TaoNan SA2"
+ },
+ {
+  "id": "2022_SA1_ACSJ",
+  "year": 2022,
+  "school": "ACSJ",
+  "exam": "SA1",
+  "title": "2022 ACSJ SA1"
+ },
+ {
+  "id": "2022_SA2_ACSJ",
+  "year": 2022,
+  "school": "ACSJ",
+  "exam": "SA2",
+  "title": "2022 ACSJ SA2"
+ },
+ {
+  "id": "2022_SA1_ACSP",
+  "year": 2022,
+  "school": "ACSP",
+  "exam": "SA1",
+  "title": "2022 ACSP SA1"
+ },
+ {
+  "id": "2022_SA2_ACSP",
+  "year": 2022,
+  "school": "ACSP",
+  "exam": "SA2",
+  "title": "2022 ACSP SA2"
+ },
+ {
+  "id": "2022_EOY_CatholicHigh",
+  "year": 2022,
+  "school": "CatholicHigh",
+  "exam": "EOY",
+  "title": "2022 CatholicHigh EOY"
+ },
+ {
+  "id": "2022_SA1_CatholicHigh",
+  "year": 2022,
+  "school": "CatholicHigh",
+  "exam": "SA1",
+  "title": "2022 CatholicHigh SA1"
+ },
+ {
+  "id": "2022_SA1_HenryPark",
+  "year": 2022,
+  "school": "HenryPark",
+  "exam": "SA1",
+  "title": "2022 HenryPark SA1"
+ },
+ {
+  "id": "2022_SA2_HenryPark",
+  "year": 2022,
+  "school": "HenryPark",
+  "exam": "SA2",
+  "title": "2022 HenryPark SA2"
+ },
+ {
+  "id": "2022_SA2_MarisStella",
+  "year": 2022,
+  "school": "MarisStella",
+  "exam": "SA2",
+  "title": "2022 MarisStella SA2"
+ },
+ {
+  "id": "2022_EOY_NanHua",
+  "year": 2022,
+  "school": "NanHua",
+  "exam": "EOY",
+  "title": "2022 NanHua EOY"
+ },
+ {
+  "id": "2022_SA1_NanHua",
+  "year": 2022,
+  "school": "NanHua",
+  "exam": "SA1",
+  "title": "2022 NanHua SA1"
+ },
+ {
+  "id": "2022_WA1_NanHua",
+  "year": 2022,
+  "school": "NanHua",
+  "exam": "WA1",
+  "title": "2022 NanHua WA1"
+ },
+ {
+  "id": "2022_EOY_PLMGS",
+  "year": 2022,
+  "school": "PLMGS",
+  "exam": "EOY",
+  "title": "2022 PLMGS EOY"
+ },
+ {
+  "id": "2022_SA1_PLMGS",
+  "year": 2022,
+  "school": "PLMGS",
+  "exam": "SA1",
+  "title": "2022 PLMGS SA1"
+ },
+ {
+  "id": "2022_EOY_PeiChun",
+  "year": 2022,
+  "school": "PeiChun",
+  "exam": "EOY",
+  "title": "2022 PeiChun EOY"
+ },
+ {
+  "id": "2022_EOY_Raffles",
+  "year": 2022,
+  "school": "Raffles",
+  "exam": "EOY",
+  "title": "2022 Raffles EOY"
+ },
+ {
+  "id": "2022_SA1_Raffles",
+  "year": 2022,
+  "school": "Raffles",
+  "exam": "SA1",
+  "title": "2022 Raffles SA1"
+ },
+ {
+  "id": "2022_EOY_RedSwastika",
+  "year": 2022,
+  "school": "RedSwastika",
+  "exam": "EOY",
+  "title": "2022 RedSwastika EOY"
+ },
+ {
+  "id": "2022_SA1_RedSwastika",
+  "year": 2022,
+  "school": "RedSwastika",
+  "exam": "SA1",
+  "title": "2022 RedSwastika SA1"
+ },
+ {
+  "id": "2022_EOY_TaoNan",
+  "year": 2022,
+  "school": "TaoNan",
+  "exam": "EOY",
+  "title": "2022 TaoNan EOY"
+ },
+ {
+  "id": "2022_SA1_TaoNan",
+  "year": 2022,
+  "school": "TaoNan",
+  "exam": "SA1",
+  "title": "2022 TaoNan SA1"
+ },
+ {
+  "id": "2023_EOY_ACSJ",
+  "year": 2023,
+  "school": "ACSJ",
+  "exam": "EOY",
+  "title": "2023 ACSJ EOY"
+ },
+ {
+  "id": "2023_WA2_ACSJ",
+  "year": 2023,
+  "school": "ACSJ",
+  "exam": "WA2",
+  "title": "2023 ACSJ WA2"
+ },
+ {
+  "id": "2023_EOY_CatholicHigh",
+  "year": 2023,
+  "school": "CatholicHigh",
+  "exam": "EOY",
+  "title": "2023 CatholicHigh EOY"
+ },
+ {
+  "id": "2023_WA2_CatholicHigh",
+  "year": 2023,
+  "school": "CatholicHigh",
+  "exam": "WA2",
+  "title": "2023 CatholicHigh WA2"
+ },
+ {
+  "id": "2023_EOY_HenryPark",
+  "year": 2023,
+  "school": "HenryPark",
+  "exam": "EOY",
+  "title": "2023 HenryPark EOY"
+ },
+ {
+  "id": "2023_WA1_HenryPark",
+  "year": 2023,
+  "school": "HenryPark",
+  "exam": "WA1",
+  "title": "2023 HenryPark WA1"
+ },
+ {
+  "id": "2023_WA2_HenryPark",
+  "year": 2023,
+  "school": "HenryPark",
+  "exam": "WA2",
+  "title": "2023 HenryPark WA2"
+ },
+ {
+  "id": "2023_EOY_MGS",
+  "year": 2023,
+  "school": "MGS",
+  "exam": "EOY",
+  "title": "2023 MGS EOY"
+ },
+ {
+  "id": "2023_WA2_MGS",
+  "year": 2023,
+  "school": "MGS",
+  "exam": "WA2",
+  "title": "2023 MGS WA2"
+ },
+ {
+  "id": "2023_WA3_MGS",
+  "year": 2023,
+  "school": "MGS",
+  "exam": "WA3",
+  "title": "2023 MGS WA3"
+ },
+ {
+  "id": "2023_EOY_MahaBodhi",
+  "year": 2023,
+  "school": "MahaBodhi",
+  "exam": "EOY",
+  "title": "2023 MahaBodhi EOY"
+ },
+ {
+  "id": "2023_WA1_MahaBodhi",
+  "year": 2023,
+  "school": "MahaBodhi",
+  "exam": "WA1",
+  "title": "2023 MahaBodhi WA1"
+ },
+ {
+  "id": "2023_WA2_MahaBodhi",
+  "year": 2023,
+  "school": "MahaBodhi",
+  "exam": "WA2",
+  "title": "2023 MahaBodhi WA2"
+ },
+ {
+  "id": "2023_EOY_NanHua",
+  "year": 2023,
+  "school": "NanHua",
+  "exam": "EOY",
+  "title": "2023 NanHua EOY"
+ },
+ {
+  "id": "2023_EOY_Nanyang",
+  "year": 2023,
+  "school": "Nanyang",
+  "exam": "EOY",
+  "title": "2023 Nanyang EOY"
+ },
+ {
+  "id": "2023_EOY_PLMGS",
+  "year": 2023,
+  "school": "PLMGS",
+  "exam": "EOY",
+  "title": "2023 PLMGS EOY"
+ },
+ {
+  "id": "2023_WA2_PLMGS",
+  "year": 2023,
+  "school": "PLMGS",
+  "exam": "WA2",
+  "title": "2023 PLMGS WA2"
+ },
+ {
+  "id": "2023_EOY_PeiChun",
+  "year": 2023,
+  "school": "PeiChun",
+  "exam": "EOY",
+  "title": "2023 PeiChun EOY"
+ },
+ {
+  "id": "2023_EOY_PeiHwa",
+  "year": 2023,
+  "school": "PeiHwa",
+  "exam": "EOY",
+  "title": "2023 PeiHwa EOY"
+ },
+ {
+  "id": "2023_WA2_PeiHwa",
+  "year": 2023,
+  "school": "PeiHwa",
+  "exam": "WA2",
+  "title": "2023 PeiHwa WA2"
+ },
+ {
+  "id": "2023_WA3_PeiHwa",
+  "year": 2023,
+  "school": "PeiHwa",
+  "exam": "WA3",
+  "title": "2023 PeiHwa WA3"
+ },
+ {
+  "id": "2023_EOY_RedSwastika",
+  "year": 2023,
+  "school": "RedSwastika",
+  "exam": "EOY",
+  "title": "2023 RedSwastika EOY"
+ },
+ {
+  "id": "2023_WA1_RedSwastika",
+  "year": 2023,
+  "school": "RedSwastika",
+  "exam": "WA1",
+  "title": "2023 RedSwastika WA1"
+ },
+ {
+  "id": "2023_WA2_RedSwastika",
+  "year": 2023,
+  "school": "RedSwastika",
+  "exam": "WA2",
+  "title": "2023 RedSwastika WA2"
+ },
+ {
+  "id": "2023_EOY_Rosyth",
+  "year": 2023,
+  "school": "Rosyth",
+  "exam": "EOY",
+  "title": "2023 Rosyth EOY"
+ },
+ {
+  "id": "2023_WA2_Rosyth",
+  "year": 2023,
+  "school": "Rosyth",
+  "exam": "WA2",
+  "title": "2023 Rosyth WA2"
+ },
+ {
+  "id": "2023_EOY_SCGS",
+  "year": 2023,
+  "school": "SCGS",
+  "exam": "EOY",
+  "title": "2023 SCGS EOY"
+ },
+ {
+  "id": "2023_EOY_StHilda",
+  "year": 2023,
+  "school": "StHilda",
+  "exam": "EOY",
+  "title": "2023 StHilda EOY"
+ },
+ {
+  "id": "2023_WA3_StHilda",
+  "year": 2023,
+  "school": "StHilda",
+  "exam": "WA3",
+  "title": "2023 StHilda WA3"
+ },
+ {
+  "id": "2023_EOY_StNicholas",
+  "year": 2023,
+  "school": "StNicholas",
+  "exam": "EOY",
+  "title": "2023 StNicholas EOY"
+ },
+ {
+  "id": "2023_EOY_TaoNan",
+  "year": 2023,
+  "school": "TaoNan",
+  "exam": "EOY",
+  "title": "2023 TaoNan EOY"
+ },
+ {
+  "id": "2023_WA1_TaoNan",
+  "year": 2023,
+  "school": "TaoNan",
+  "exam": "WA1",
+  "title": "2023 TaoNan WA1"
+ },
+ {
+  "id": "2024_EOY_ACSJ",
+  "year": 2024,
+  "school": "ACSJ",
+  "exam": "EOY",
+  "title": "2024 ACSJ EOY"
+ },
+ {
+  "id": "2024_EOY_AiTong",
+  "year": 2024,
+  "school": "AiTong",
+  "exam": "EOY",
+  "title": "2024 AiTong EOY"
+ },
+ {
+  "id": "2024_WA1_AiTong",
+  "year": 2024,
+  "school": "AiTong",
+  "exam": "WA1",
+  "title": "2024 AiTong WA1"
+ },
+ {
+  "id": "2024_WA2_AiTong",
+  "year": 2024,
+  "school": "AiTong",
+  "exam": "WA2",
+  "title": "2024 AiTong WA2"
+ },
+ {
+  "id": "2024_EOY_CatholicHigh",
+  "year": 2024,
+  "school": "CatholicHigh",
+  "exam": "EOY",
+  "title": "2024 CatholicHigh EOY"
+ },
+ {
+  "id": "2024_WA1_CatholicHigh",
+  "year": 2024,
+  "school": "CatholicHigh",
+  "exam": "WA1",
+  "title": "2024 CatholicHigh WA1"
+ },
+ {
+  "id": "2024_WA2_CatholicHigh",
+  "year": 2024,
+  "school": "CatholicHigh",
+  "exam": "WA2",
+  "title": "2024 CatholicHigh WA2"
+ },
+ {
+  "id": "2024_EOY_HenryPark",
+  "year": 2024,
+  "school": "HenryPark",
+  "exam": "EOY",
+  "title": "2024 HenryPark EOY"
+ },
+ {
+  "id": "2024_WA12_HenryPark",
+  "year": 2024,
+  "school": "HenryPark",
+  "exam": "WA12",
+  "title": "2024 HenryPark WA12"
+ },
+ {
+  "id": "2024_EOY_MahaBodhi",
+  "year": 2024,
+  "school": "MahaBodhi",
+  "exam": "EOY",
+  "title": "2024 MahaBodhi EOY"
+ },
+ {
+  "id": "2024_WA1_MahaBodhi",
+  "year": 2024,
+  "school": "MahaBodhi",
+  "exam": "WA1",
+  "title": "2024 MahaBodhi WA1"
+ },
+ {
+  "id": "2024_WA2_MahaBodhi",
+  "year": 2024,
+  "school": "MahaBodhi",
+  "exam": "WA2",
+  "title": "2024 MahaBodhi WA2"
+ },
+ {
+  "id": "2024_EOY_NanChiau",
+  "year": 2024,
+  "school": "NanChiau",
+  "exam": "EOY",
+  "title": "2024 NanChiau EOY"
+ },
+ {
+  "id": "2024_EOY_NanHua",
+  "year": 2024,
+  "school": "NanHua",
+  "exam": "EOY",
+  "title": "2024 NanHua EOY"
+ },
+ {
+  "id": "2024_WA1T1_NanHua",
+  "year": 2024,
+  "school": "NanHua",
+  "exam": "WA1T1",
+  "title": "2024 NanHua WA1T1"
+ },
+ {
+  "id": "2024_EOY_Nanyang",
+  "year": 2024,
+  "school": "Nanyang",
+  "exam": "EOY",
+  "title": "2024 Nanyang EOY"
+ },
+ {
+  "id": "2024_WA1_Nanyang",
+  "year": 2024,
+  "school": "Nanyang",
+  "exam": "WA1",
+  "title": "2024 Nanyang WA1"
+ },
+ {
+  "id": "2024_WA2_Nanyang",
+  "year": 2024,
+  "school": "Nanyang",
+  "exam": "WA2",
+  "title": "2024 Nanyang WA2"
+ },
+ {
+  "id": "2024_EOY_PeiChun",
+  "year": 2024,
+  "school": "PeiChun",
+  "exam": "EOY",
+  "title": "2024 PeiChun EOY"
+ },
+ {
+  "id": "2024_WA2_PeiChun",
+  "year": 2024,
+  "school": "PeiChun",
+  "exam": "WA2",
+  "title": "2024 PeiChun WA2"
+ },
+ {
+  "id": "2024_WA3_PeiChun",
+  "year": 2024,
+  "school": "PeiChun",
+  "exam": "WA3",
+  "title": "2024 PeiChun WA3"
+ },
+ {
+  "id": "2024_EOY_Raffles",
+  "year": 2024,
+  "school": "Raffles",
+  "exam": "EOY",
+  "title": "2024 Raffles EOY"
+ },
+ {
+  "id": "2024_WA2_Raffles",
+  "year": 2024,
+  "school": "Raffles",
+  "exam": "WA2",
+  "title": "2024 Raffles WA2"
+ },
+ {
+  "id": "2024_EOY_RedSwastika",
+  "year": 2024,
+  "school": "RedSwastika",
+  "exam": "EOY",
+  "title": "2024 RedSwastika EOY"
+ },
+ {
+  "id": "2024_EOY_Rosyth",
+  "year": 2024,
+  "school": "Rosyth",
+  "exam": "EOY",
+  "title": "2024 Rosyth EOY"
+ },
+ {
+  "id": "2024_WA1_Rosyth",
+  "year": 2024,
+  "school": "Rosyth",
+  "exam": "WA1",
+  "title": "2024 Rosyth WA1"
+ },
+ {
+  "id": "2024_WA2_Rosyth",
+  "year": 2024,
+  "school": "Rosyth",
+  "exam": "WA2",
+  "title": "2024 Rosyth WA2"
+ },
+ {
+  "id": "2024_EOY_Rulang",
+  "year": 2024,
+  "school": "Rulang",
+  "exam": "EOY",
+  "title": "2024 Rulang EOY"
+ },
+ {
+  "id": "2024_WA1_Rulang",
+  "year": 2024,
+  "school": "Rulang",
+  "exam": "WA1",
+  "title": "2024 Rulang WA1"
+ },
+ {
+  "id": "2024_WA2_Rulang",
+  "year": 2024,
+  "school": "Rulang",
+  "exam": "WA2",
+  "title": "2024 Rulang WA2"
+ },
+ {
+  "id": "2024_EOY_StHilda",
+  "year": 2024,
+  "school": "StHilda",
+  "exam": "EOY",
+  "title": "2024 StHilda EOY"
+ },
+ {
+  "id": "2024_WA23_StHilda",
+  "year": 2024,
+  "school": "StHilda",
+  "exam": "WA23",
+  "title": "2024 StHilda WA23"
+ },
+ {
+  "id": "2024_EOY_TaoNan",
+  "year": 2024,
+  "school": "TaoNan",
+  "exam": "EOY",
+  "title": "2024 TaoNan EOY"
+ },
+ {
+  "id": "2024_WA1_TaoNan",
+  "year": 2024,
+  "school": "TaoNan",
+  "exam": "WA1",
+  "title": "2024 TaoNan WA1"
+ },
+ {
+  "id": "2024_WA2_TaoNan",
+  "year": 2024,
+  "school": "TaoNan",
+  "exam": "WA2",
+  "title": "2024 TaoNan WA2"
+ },
+ {
+  "id": "2024_WA3_TaoNan",
+  "year": 2024,
+  "school": "TaoNan",
+  "exam": "WA3",
+  "title": "2024 TaoNan WA3"
+ },
+ {
+  "id": "2025_EOY_ACSP",
+  "year": 2025,
+  "school": "ACSP",
+  "exam": "EOY",
+  "title": "2025 ACSP EOY"
+ },
+ {
+  "id": "2025_WA1_ACSP",
+  "year": 2025,
+  "school": "ACSP",
+  "exam": "WA1",
+  "title": "2025 ACSP WA1"
+ },
+ {
+  "id": "2025_WA2_ACSP",
+  "year": 2025,
+  "school": "ACSP",
+  "exam": "WA2",
+  "title": "2025 ACSP WA2"
+ },
+ {
+  "id": "2025_EOY_CatholicHigh",
+  "year": 2025,
+  "school": "CatholicHigh",
+  "exam": "EOY",
+  "title": "2025 CatholicHigh EOY"
+ },
+ {
+  "id": "2025_WA3_CatholicHigh",
+  "year": 2025,
+  "school": "CatholicHigh",
+  "exam": "WA3",
+  "title": "2025 CatholicHigh WA3"
+ },
+ {
+  "id": "2025_EOY_HenryPark",
+  "year": 2025,
+  "school": "HenryPark",
+  "exam": "EOY",
+  "title": "2025 HenryPark EOY"
+ },
+ {
+  "id": "2025_WA1_HenryPark",
+  "year": 2025,
+  "school": "HenryPark",
+  "exam": "WA1",
+  "title": "2025 HenryPark WA1"
+ },
+ {
+  "id": "2025_EOY_MahaBodhi",
+  "year": 2025,
+  "school": "MahaBodhi",
+  "exam": "EOY",
+  "title": "2025 MahaBodhi EOY"
+ },
+ {
+  "id": "2025_WA1_MahaBodhi",
+  "year": 2025,
+  "school": "MahaBodhi",
+  "exam": "WA1",
+  "title": "2025 MahaBodhi WA1"
+ },
+ {
+  "id": "2025_WA2_MahaBodhi",
+  "year": 2025,
+  "school": "MahaBodhi",
+  "exam": "WA2",
+  "title": "2025 MahaBodhi WA2"
+ },
+ {
+  "id": "2025_EOY_NanChiau",
+  "year": 2025,
+  "school": "NanChiau",
+  "exam": "EOY",
+  "title": "2025 NanChiau EOY"
+ },
+ {
+  "id": "2025_WA2_NanChiau",
+  "year": 2025,
+  "school": "NanChiau",
+  "exam": "WA2",
+  "title": "2025 NanChiau WA2"
+ },
+ {
+  "id": "2025_WA3_NanChiau",
+  "year": 2025,
+  "school": "NanChiau",
+  "exam": "WA3",
+  "title": "2025 NanChiau WA3"
+ },
+ {
+  "id": "2025_EOY_NanHua",
+  "year": 2025,
+  "school": "NanHua",
+  "exam": "EOY",
+  "title": "2025 NanHua EOY"
+ },
+ {
+  "id": "2025_WA1_NanHua",
+  "year": 2025,
+  "school": "NanHua",
+  "exam": "WA1",
+  "title": "2025 NanHua WA1"
+ },
+ {
+  "id": "2025_EOY_Nanyang",
+  "year": 2025,
+  "school": "Nanyang",
+  "exam": "EOY",
+  "title": "2025 Nanyang EOY"
+ },
+ {
+  "id": "2025_WA1_Nanyang",
+  "year": 2025,
+  "school": "Nanyang",
+  "exam": "WA1",
+  "title": "2025 Nanyang WA1"
+ },
+ {
+  "id": "2025_WA2_Nanyang",
+  "year": 2025,
+  "school": "Nanyang",
+  "exam": "WA2",
+  "title": "2025 Nanyang WA2"
+ },
+ {
+  "id": "2025_EOY_PLMGS",
+  "year": 2025,
+  "school": "PLMGS",
+  "exam": "EOY",
+  "title": "2025 PLMGS EOY"
+ },
+ {
+  "id": "2025_WA2_PLMGS",
+  "year": 2025,
+  "school": "PLMGS",
+  "exam": "WA2",
+  "title": "2025 PLMGS WA2"
+ },
+ {
+  "id": "2025_WA3_PLMGS",
+  "year": 2025,
+  "school": "PLMGS",
+  "exam": "WA3",
+  "title": "2025 PLMGS WA3"
+ },
+ {
+  "id": "2025_EOY_RedSwastika",
+  "year": 2025,
+  "school": "RedSwastika",
+  "exam": "EOY",
+  "title": "2025 RedSwastika EOY"
+ },
+ {
+  "id": "2025_WA2_RedSwastika",
+  "year": 2025,
+  "school": "RedSwastika",
+  "exam": "WA2",
+  "title": "2025 RedSwastika WA2"
+ },
+ {
+  "id": "2025_WA3_RedSwastika",
+  "year": 2025,
+  "school": "RedSwastika",
+  "exam": "WA3",
+  "title": "2025 RedSwastika WA3"
+ },
+ {
+  "id": "2025_EOY_Rosyth",
+  "year": 2025,
+  "school": "Rosyth",
+  "exam": "EOY",
+  "title": "2025 Rosyth EOY"
+ },
+ {
+  "id": "2025_WA2_Rosyth",
+  "year": 2025,
+  "school": "Rosyth",
+  "exam": "WA2",
+  "title": "2025 Rosyth WA2"
+ },
+ {
+  "id": "2025_EOY_StHilda",
+  "year": 2025,
+  "school": "StHilda",
+  "exam": "EOY",
+  "title": "2025 StHilda EOY"
+ },
+ {
+  "id": "2025_WA2_StHilda",
+  "year": 2025,
+  "school": "StHilda",
+  "exam": "WA2",
+  "title": "2025 StHilda WA2"
+ },
+ {
+  "id": "2025_EOY_StNicholas",
+  "year": 2025,
+  "school": "StNicholas",
+  "exam": "EOY",
+  "title": "2025 StNicholas EOY"
+ },
+ {
+  "id": "2025_EOY_TaoNan",
+  "year": 2025,
+  "school": "TaoNan",
+  "exam": "EOY",
+  "title": "2025 TaoNan EOY"
+ },
+ {
+  "id": "2025_WA1_TaoNan",
+  "year": 2025,
+  "school": "TaoNan",
+  "exam": "WA1",
+  "title": "2025 TaoNan WA1"
+ }
+]
