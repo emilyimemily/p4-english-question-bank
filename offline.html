@@ -1359,10 +1359,10 @@ function renderTeacher(){
       '<div class="count-row">'+
         '<div>Matching items: <b id="matchCount">'+matchedQuestions().length+'</b> items</div>'+
         '<label class="sel">Questions to draw <input class="num-input" type="number" min="1" max="999" value="'+state.drawCount+'" data-field="count"></label>'+
-        '<div class="toolbar">'+
-          '<button class="btn primary" data-action="gen-random">Generate Random Paper</button>'+
-          '<button class="btn ghost" data-action="gen-all">Select All</button>'+
-        '</div>'+
+        groupPracticePanel()+
+        '<div class="toolbar"><button class="btn primary" data-action="start-group">Start selected group</button>'+
+          '<button class="btn ghost" data-action="gen-random">Generate Random Paper</button>'+
+          '<button class="btn ghost" data-action="gen-all">Select All</button></div>'+
       '</div>'+
     '</div>'+
     renderTeacherPaper()+
