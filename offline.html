@@ -1439,6 +1439,7 @@ function submitPractice(){
     s.submitted = true;
     s.elapsed = Date.now() - s.startTime;
     s.showSummary = true;
+    if (s.groupKey && s.groupIndex) markGroupDone(s.groupKey, s.groupIndex);
   }
   render();
   scrollToFeedback();
@@ -1474,6 +1475,90 @@ function practiceSummary(){
     acc: s.questions.length ? Math.round(correctCount/s.questions.length*100) : 0
   };
 }
+/* ---- P4: grouped practice ----
+   A selection (e.g. one question type) is split into fixed groups of
+   GROUP_SIZE questions.  The student picks a group from a dropdown; which
+   groups are already done is remembered per filter combination, and the
+   next not-yet-done group is offered by default so they never restart
+   from the first item. */
+const GROUP_KEY = 'p4en_groups_v1';
+const GROUP_SIZE = 20;
+function filterSignature(){
+  const f = state.filters;
+  const parts = [];
+  DIMS.forEach(function(d){
+    if (f[d.key] && f[d.key].size) parts.push(d.key+':'+[...f[d.key]].sort().join(','));
+  });
+  if (f.onlyDoubt) parts.push('doubt:1');
+  if (f.wrongMode && f.wrongMode !== 'include') parts.push('wrong:'+f.wrongMode);
+  return parts.join('|') || 'ALL';
+}
+function loadGroupProgress(){
+  try{ const raw = localStorage.getItem(GROUP_KEY); const o = raw ? JSON.parse(raw) : {}; return (o && typeof o==='object') ? o : {}; }
+  catch(e){ return {}; }
+}
+function saveGroupProgress(o){ try{ localStorage.setItem(GROUP_KEY, JSON.stringify(o)); }catch(e){} }
+function markGroupDone(sig, g){
+  const o = loadGroupProgress();
+  const rec = o[sig] || {done:[], last:0};
+  if (rec.done.indexOf(g) === -1) rec.done.push(g);
+  rec.last = g;
+  o[sig] = rec;
+  saveGroupProgress(o);
+}
+function suggestedGroup(total, sig){
+  const g = Math.max(1, Math.ceil(total / GROUP_SIZE));
+  const done = new Set((loadGroupProgress()[sig] || {done:[]}).done || []);
+  for (let i=1; i<=g; i++){ if (!done.has(i)) return i; }
+  return g; /* all done -> re-do the last group */
+}
+function groupLabel(){
+  const f = state.filters;
+  const types = (f.type && f.type.size) ? [...f.type].join('/') : 'All types';
+  const schools = (f.school && f.school.size) ? [...f.school].join('/') : '';
+  return (schools ? schools+' - ' : '') + types;
+}
+function groupPracticePanel(){
+  const total = matchedQuestions().length;
+  if (!total) return '';
+  const groups = Math.ceil(total / GROUP_SIZE);
+  const sig = filterSignature();
+  const done = new Set((loadGroupProgress()[sig] || {done:[]}).done || []);
+  const suggested = suggestedGroup(total, sig);
+  const current = state.groupPick || suggested;
+  let opts = '';
+  for (let i=1; i<=groups; i++){
+    const a = (i-1)*GROUP_SIZE + 1, b = Math.min(total, i*GROUP_SIZE);
+    const cnt = b - a + 1;
+    const tick = done.has(i) ? ' (done)' : '';
+    const sel = (i === current) ? ' selected' : '';
+    opts += '<option value="'+i+'"'+sel+'>Group '+i+' - Q'+a+'-'+b+' ('+cnt+')'+tick+'</option>';
+  }
+  let hint = '';
+  if (done.size){
+    const lst = [...done].sort(function(x,y){return x-y;}).join(', ');
+    hint = 'Completed groups: '+lst+'. ';
+  }
+  hint += 'Suggested next: Group '+suggested+'.';
+  return '<div class="grp-panel">'+
+    '<div class="grp-head">Practice by group <span class="hint">- this selection is split into groups of '+GROUP_SIZE+'; your progress is remembered</span></div>'+
+    '<label class="sel">Choose a group: <select data-field="group-pick">'+opts+'</select></label>'+
+    '<div class="grp-hint">'+esc(hint)+'</div>'+
+  '</div>';
+}
+function startGroupPractice(){
+  const pool = matchedQuestions();
+  if (!pool.length){ flash('No questions match the current filters.'); return; }
+  const groups = Math.ceil(pool.length / GROUP_SIZE);
+  let g = state.groupPick || suggestedGroup(pool.length, filterSignature());
+  if (g < 1) g = 1; if (g > groups) g = groups;
+  const slice = pool.slice((g-1)*GROUP_SIZE, (g-1)*GROUP_SIZE + GROUP_SIZE);
+  if (!slice.length){ flash('That group is empty.'); return; }
+  const sig = filterSignature();
+  startPractice(slice, {label: 'Group '+g+' - '+groupLabel()});
+  state.student.groupKey = sig;
+  state.student.groupIndex = g;
+}
 function renderStudentSetup(){
   const p = state.paper;
   const banner = p
@@ -1486,7 +1571,9 @@ function renderStudentSetup(){
       '<div class="count-row">'+
         '<div>Available items: <b id="matchCount">'+matchedQuestions().length+'</b> items</div>'+
         '<label class="sel">Number of questions <input class="num-input" type="number" min="1" max="999" value="'+state.drawCount+'" data-field="count"></label>'+
-        '<div class="toolbar"><button class="btn primary" data-action="start-practice">Start Practice</button></div>'+
+        groupPracticePanel()+
+        '<div class="toolbar"><button class="btn primary" data-action="start-group">Start selected group</button>'+
+          '<button class="btn ghost" data-action="start-practice">Start random practice</button></div>'+
       '</div>'+
     '</div>'+
   '</div>';
@@ -1952,6 +2039,7 @@ function handleField(el){
     }
     case 'only-doubt':   state.filters.onlyDoubt = el.checked; updateMatchCount(); break;
     case 'wrong-mode':   state.filters.wrongMode = el.value; updateMatchCount(); break;
+    case 'group-pick':   state.groupPick = parseInt(el.value, 10) || 0; break;
     case 'show-answers': state.showAnswers = el.checked; render(); break;
     case 'paper-goto':   gotoPaperQuestion(parseInt(el.value, 10)); break;
     case 'autoremove':   state.autoRemove = el.checked; break;
@@ -1999,6 +2087,7 @@ function onClick(e){
     case 'export-json':    exportPaper(); break;
     case 'start-paper':    if (state.paper) startPractice(state.paper.questions, {label:'Current paper'}); break;
     case 'start-practice': startPracticeCustom(); break;
+    case 'start-group':    startGroupPractice(); break;
     case 'student-back':   state.student.active = false; render(); break;
     case 'submit':         submitPractice(); break;
     case 'prev-question':  gotoQuestion(state.student.qIndex - 1); break;
@@ -2195,5 +2284,13 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:'){
   });
 }
 </script>
+<style>
+.grp-panel{border:1px solid #d6deec;border-radius:10px;padding:10px 12px;margin:10px 0;background:#f3f7fd;}
+.grp-head{font-weight:600;margin-bottom:6px;}
+.grp-head .hint{font-weight:400;color:#5b6b85;font-size:12px;}
+.grp-panel .sel{display:inline-flex;align-items:center;gap:8px;margin:4px 0;flex-wrap:wrap;}
+.grp-panel select{min-width:260px;max-width:100%;}
+.grp-hint{font-size:13px;color:#36456a;margin-top:4px;}
+</style>
 </body>
 </html>
