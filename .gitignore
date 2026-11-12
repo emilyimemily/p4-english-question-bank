@@ -1,6 +1,4 @@
-_wb_probe.html
-_probe.html
-_mobile_*.html
+_*.html
 _edgeprof*/
 __pycache__/
 *.tmp

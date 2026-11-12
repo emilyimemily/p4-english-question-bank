@@ -1,7 +1,7 @@
 # P4 English Question Bank
 
 A free, offline-capable question bank built from **153 scanned Primary 4 English
-past-year exam papers (2021-2025)** — 3,737 questions.
+past-year exam papers (2021-2025)** — 3,808 questions.
 
 **Live site:** https://emilyimemily.github.io/p4-english-question-bank/
 
@@ -33,4 +33,4 @@ Questions were located by OCR line geometry at 150 dpi; the scans themselves
 were cut from the source PDFs. `needs_review=true` means no official key was
 found in the paper. All material is provided for personal study.
 
-Generated 2026-11-11.
+Generated 2026-11-12.

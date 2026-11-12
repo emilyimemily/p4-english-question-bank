@@ -452,7 +452,8 @@ function visualImageHtml(q, which, interactive){
   /* Comprehension / Grammar / Vocabulary Cloze (and Editing) are answered ONLY
      in the boxes printed on the passage scan.  Nothing at all is added below
      that scan - no mirrored answer row and no "open full size" link. */
-  const barePassage = which === 'question' && (v.mode === 'cloze' || v.mode === 'editing');
+  const barePassage = which === 'question' && (v.mode === 'cloze' || v.mode === 'editing'
+                                   || v.mode === 'synthesis');
   const sizes = (which === 'article') ? (v.article_wh || []) : (v.question_wh || []);
   let out = '';
   imgs.forEach(function(src, i){
@@ -566,6 +567,28 @@ function qscanHtml(q){
 /* The printed reference word box is part of the SCAN, never OCR'ed into text.
    OCR of the box was unreliable (letters mis-read, words dropped), so the
    original printed box is shipped inside the screenshot instead. */
+/* Every Reading Comprehension question is MARKED with the article it asks
+   about.  The student is shown the article scan first and the cropped
+   question straight after it, and the labels say which passage the question
+   belongs to, so article and question can always be put back together. */
+function passageMark(q){
+  const idx = Number((q && q.passage_index) || 0);
+  const pg  = Number((q && q.passage_page) || 0);
+  const sec = (q && q.passage_section) ? String(q.passage_section).trim() : '';
+  const no  = (q && q.no !== null && q.no !== undefined) ? String(q.no) : '';
+  if (!idx && !sec && !pg){
+    return {title:'Reading passage',
+            tag:'Only the passage from the original paper - click to open full size',
+            qtag:'This question only - cropped from the original paper', short:''};
+  }
+  const title = 'Reading passage ' + (idx || 1);
+  const bits = [];
+  if (sec) bits.push(sec);
+  if (pg) bits.push('from page ' + pg);
+  const tag = bits.join(' · ') + ' · from the original paper - tap to open full size';
+  const qtag = 'Question ' + (no || '?') + ' belongs to ' + title.toLowerCase();
+  return {title:title, tag:tag, qtag:qtag, short:'Passage ' + (idx || 1)};
+}
 function questionVisual(q, opts){
   const v = vis(q);
   if (!v) return qscanHtml(q);
@@ -576,17 +599,18 @@ function questionVisual(q, opts){
   const ans = (opts && opts.ans !== undefined && opts.ans !== null) ? String(opts.ans) : '';
   const arts = visList(q, 'article'), qs = visList(q, 'question');
   let h = '<div class="visual">';
+  const pmark = passageMark(q);
   if (arts.length){
-    h += '<div class="visual-label">Reading passage '+
-         '<span class="tag">Only the passage from the original paper - click to open full size</span></div>';
+    h += '<div class="visual-label">'+esc(pmark.title)+
+         ' <span class="tag">'+esc(pmark.tag)+'</span></div>';
     h += visualImageHtml(q, 'article', interactive);
   }
   if (qs.length){
-    const passageMode = (v.mode === 'cloze' || v.mode === 'editing');
+    const passageMode = (v.mode === 'cloze' || v.mode === 'editing' || v.mode === 'synthesis');
     h += '<div class="visual-label">'+(passageMode ? 'Question / passage' : 'Question')+
          ' <span class="tag">'+(passageMode
             ? 'Type your answers in the boxes on the scan'
-            : 'This question only - cropped from the original paper')+'</span></div>';
+            : esc(pmark.qtag))+'</span></div>';
     h += visualImageHtml(q, 'question', interactive);
   }
   h += visualAnswerHtml(q, interactive, ans);
@@ -622,7 +646,9 @@ function questionById(id){
 function hasOptions(q){ return !!(q.options && typeof q.options === 'object' && Object.keys(q.options).length); }
 function numMarks(q){ const n = Number(q && q.marks); return (isFinite(n) && n > 0) ? n : 1; }
 function sourceTag(q){
-  const s = [q.year, q.school, q.exam, (q.no !== null && q.no !== undefined) ? 'Q'+q.no : '', q.type]
+  const pm = passageMark(q);
+  const s = [q.year, q.school, q.exam, (q.no !== null && q.no !== undefined) ? 'Q'+q.no : '',
+             q.type, pm.short]
     .filter(x => x !== '' && x !== null && x !== undefined).join(' · ');
   const a = auditOf(q);
   return s + (q.doubt === true ? ' · ⚠ Needs Review' : '') +
