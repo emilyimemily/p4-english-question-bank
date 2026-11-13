@@ -955,7 +955,7 @@ function answerAuditHtml(q, compact){
       return '<span class="ans-audit-chip" title="'+esc(note)+'">&#9888; Questionable</span>';
     return '<div class="ans-audit warn"><b>&#9888; Questionable answer - check both versions</b>'+
       (note ? '<span class="audit-note">'+esc(note)+'</span>' : '')+
-      (mine ? '<span class="audit-ind">Independent answer: '+esc(mine)+'</span>' : '')+
+      (mine ? '<span class="audit-ind">Independent answer: option '+esc(mine)+(q.options && q.options[mine] ? ' ('+esc(String(q.options[mine]))+')' : '')+'</span>' : '')+
       (src  ? '<span class="audit-note">Source: '+esc(src)+'</span>' : '')+
       '<span class="audit-note">Both the paper\'s key and the independent answer are accepted when marking.</span>'+
       '</div>';
@@ -968,9 +968,16 @@ function answerAuditHtml(q, compact){
       '<span class="audit-note">Original answer-sheet text: '+esc(String(a.official || ''))+'</span></div>';
   }
   if (compact) return '';
-  if (st === 'verified')
-    return '<div class="ans-audit ok"><b>&#10003; Independently checked</b>'+
-      '<span class="audit-note">Our own attempt matched the answer on the original paper.</span></div>';
+  if (st === 'verified'){
+    if (mine){
+      const _ot = (q.options && q.options[mine]) ? ' ('+esc(String(q.options[mine]))+')' : '';
+      return '<div class="ans-audit ok"><b>&#10003; Independently checked</b>'+
+        '<span class="audit-ind">AI\'s own answer: option '+esc(mine)+_ot+'</span>'+
+        '<span class="audit-note">This matches the paper\'s printed answer key.</span></div>';
+    }
+    return '<div class="ans-audit ok"><b>&#10003; From the paper\'s answer key</b>'+
+      '<span class="audit-note">AI has not yet independently re-solved this item; check the source scan if unsure.</span></div>';
+  }
   if (st === 'unverifiable')
     return '<div class="ans-audit mute"><b>&#9678; Independent check inconclusive</b>'+
       '<span class="audit-note">'+esc(note || 'The scan text is incomplete; verify against the source scan.')+'</span></div>';
@@ -998,11 +1005,17 @@ function gradeQuestion(q, answer, parts){
      such an item is wrong: let the student / teacher self-mark it instead. */
   if (!hasAnswerKey(q)) return { score:0, correct:false, unmarked:true };
   if (hasOptions(q)){
-    const key = ans.trim(), correctKey = String(q.answer === null || q.answer === undefined ? '' : q.answer).trim();
-    let correct = key !== '' && key === correctKey;
+    const key = ans.trim();
+    const correctKey = String(q.answer === null || q.answer === undefined ? '' : q.answer).trim();
+    const altKey = String(q.answer_alt || '').trim();
+    let correct = key !== '' && (key === correctKey || key === altKey);
     if (!correct && key){
       const optText = String((q.options || {})[correctKey] || '').trim().toLowerCase();
       if (optText && key.toLowerCase() === optText) correct = true;
+      else {
+        const altText = String((q.options || {})[altKey] || '').trim().toLowerCase();
+        if (altText && key.toLowerCase() === altText) correct = true;
+      }
     }
     return { score: correct ? marks : 0, correct };
   }
@@ -1226,7 +1239,7 @@ function paperFeedback(q){
     '<div class="ans-ref"><b>Reference answer: </b>'+referenceAnswerHtml(q, false)+
       ' <b>Your answer: </b>'+esc(String(ans) || '(no answer)')+'</div>'+
     '<div class="explain"><b>Why / what to revise: </b>'+esc(why)+'</div>'+
-    '<div class="explain"><b>Explanation: </b>'+esc(q.explanation || '—')+'</div>'+
+    (q.type && q.type === 'Vocabulary MCQ' ? '' : '<div class="explain"><b>Explanation: </b>'+esc(q.explanation || '—')+'</div>')+
     (unmarked ? '<div class="override"><span class="muted">Self-correction:</span>'+
       '<button class="btn mini" data-action="paper-override-correct" data-qid="'+esc(q.id)+'">I was right</button>'+
       '<button class="btn mini" data-action="paper-override-wrong" data-qid="'+esc(q.id)+'">I was wrong</button>'+
@@ -1621,7 +1634,7 @@ function practiceFeedback(q){
         ' <button class="linkbtn" data-action="add-wrong" data-qid="'+esc(q.id)+'" '+(inWB?'disabled':'')+'>'+
         (inWB ? 'Already in Wrong Book' : 'Add to Wrong Book')+'</button></div></div>'+
     '</div>'+
-    '<div class="explain"><b>Explanation: </b>'+esc(q.explanation || '—')+'</div>'+
+    (q.type && q.type === 'Vocabulary MCQ' ? '' : '<div class="explain"><b>Explanation: </b>'+esc(q.explanation || '—')+'</div>')+
     '<div class="override"><span class="muted">Self-correction:</span>'+
       '<button class="btn mini" data-action="override-correct" data-qid="'+esc(q.id)+'">I was right</button>'+
       '<button class="btn mini" data-action="override-wrong" data-qid="'+esc(q.id)+'">I was wrong</button>'+
