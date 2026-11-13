@@ -29838,13 +29838,13 @@
     "mode": "reading",
     "article_images": [],
     "question_images": [
-     "visuals/P4_English_SA1_2021_ACSJ_Exam_Papers/q_004_007.jpg?h=cd8d0dd378"
+     "visuals/P4_English_SA1_2021_ACSJ_Exam_Papers/q_004_007.jpg?h=90b84407cf"
     ],
     "article_wh": [],
     "question_wh": [
      [
-      1121,
-      195
+      1150,
+      235
      ]
     ],
     "overlay_on": null,
@@ -32960,7 +32960,7 @@
    "stem": "shopping mall",
    "passage": "",
    "options": {
-    "1": "pian",
+    "1": "plan",
     "2": "route",
     "3": "location",
     "4": "destination"
@@ -32970,7 +32970,7 @@
    "keywords": [
     "2"
    ],
-   "explanation": "1. pian (n.) — pain; a feeling of hurt or suffering  2. route (n.) — An established line of travel or access  3. location (n.) — A point or extent in space  4. destination (n.) — The place designated as the end (as of a race or journey)",
+   "explanation": "1. plan (n.) — a set of ideas or arrangements for doing or achieving something  2. route (n.) — An established line of travel or access  3. location (n.) — A point or extent in space  4. destination (n.) — The place designated as the end (as of a race or journey)",
    "review": "",
    "wrong_hints": {},
    "marks": 1,
