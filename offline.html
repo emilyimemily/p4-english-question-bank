@@ -653,7 +653,8 @@ function sourceTag(q){
     .filter(x => x !== '' && x !== null && x !== undefined).join(' · ');
   const a = auditOf(q);
   return s + (q.doubt === true ? ' · ⚠ Needs Review' : '') +
-    (a && a.status === 'questionable' ? ' · ⚠ Answer flagged' : '');
+    (a && a.status === 'questionable' ? ' · ⚠ Answer flagged' : '') +
+    (a && (a.status === 'ai_solved' || a.status === 'ai_generated') ? ' · AI-written answer' : '');
 }
 function modelAnswer(q){
   const raw = String(q.answer === null || q.answer === undefined ? '' : q.answer);
@@ -967,6 +968,14 @@ function answerAuditHtml(q, compact){
     return '<div class="ans-audit fix"><b>&#9998; OCR-corrected key</b>'+
       (note ? '<span class="audit-note">'+esc(note)+'</span>' : '')+
       '<span class="audit-note">Original answer-sheet text: '+esc(String(a.official || ''))+'</span></div>';
+  }
+  if (st === 'ai_solved' || st === 'ai_generated'){
+    if (compact) return '<span class="ans-audit-chip" style="background:var(--accent-soft);color:var(--accent-dark)" '+
+      'title="'+esc(note)+'">AI-written answer</span>';
+    return '<div class="ans-audit fix"><b>AI-written answer - NOT from the PDF answer key</b>'+
+      '<span class="audit-note">'+esc(note || 'This answer was worked out by the AI assistant because the original paper has no answer key for this item. It is not taken from the scanned answer sheet.')+'</span>'+
+      (src ? '<span class="audit-note">Source: '+esc(src)+'</span>' : '')+
+      '<span class="audit-note">Please verify it with a teacher or parent before relying on the score.</span></div>';
   }
   if (compact) return '';
   if (st === 'verified'){
