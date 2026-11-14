@@ -1,5 +1,5 @@
 /* P4 English Question Bank - offline cache */
-const CACHE = 'p4-english-bank-v7';
+const CACHE = 'p4-english-bank-v8';
 const CORE = [
   './', './index.html', './offline.html',
   './data/question_bank.json', './data/vocab.json',
