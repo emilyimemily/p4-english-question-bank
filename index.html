@@ -437,22 +437,96 @@ function partSort(a, b){
   }
   return a < b ? -1 : (a > b ? 1 : 0);
 }
+/* Answer-box geometry fixes.
+   Two separate defects were found on the Editing questions:
+   1) HEIGHT. Every editing box carries a template height of 1.8-2.3% of the
+      scan, but the printed square it answers is about 3% tall, so the box
+      never fills the square. The floor below corrects that for every editing
+      question at once.
+   2) VERTICAL DRIFT. The stored y does not match the printed square, and the
+      offset is NOT the same on every page - it depends on how that page was
+      cropped, so it cannot be fixed with one global rule. It needs per-question
+      numbers measured against the deployed scan. Paste them into BOX_FIX,
+      keyed by question id -> part. The helper script
+      "标定答题框坐标.js" prints those numbers straight from the live site.
+   BOX_FIX is intentionally left empty until those numbers are measured:
+   a guessed y would move the box somewhere else that is also wrong. */
+const BOX_FIX = {
+  /* 2025 StHilda EOY - Grammar Cloze Q17, blanks (17)-(24), scan 1119 x 3073.
+     The four boxes of Passage 2 had been numbered one step out of place:
+       b1 sat on the word box at the TOP of the page and carried (24)
+       b7 sat on the printed [ need / needs ] bracket - that is blank (23)
+       b8 sat on the printed [ is / are ] bracket      - that is blank (24)
+     so blank (21), whose printed [ show / showed ] bracket is on the text
+     line at y 59.68-60.40, had no box at all, and the top of the page had a
+     box nobody had asked for. b1 is moved down onto that bracket, which adds
+     the missing box and clears the stray one in a single step; the labels
+     below are set to the number actually printed on the paper.
+     Geometry measured from the scan (1119 x 3073) by column ink profile.
+     The text line carrying "(21) [ show / showed ]" has ink at y 59.68-60.40,
+     and on that line the option group runs x 33.07-52.55 - its five pieces are
+     33.07("[") 35.12-41.20("show") 42.72-44.59("/") 46.20-49.69("showed")
+     51.21-52.55("]"). The neighbouring boxes are drawn exactly bracket-edge
+     to bracket-edge (b7 spans 17.43-30.74 over its own "[ need / needs ]"),
+     so this box takes the same treatment: top sits 0.13 above the ink line,
+     height 1.2, width = the option group.
+     top: b7 starts 0.135 above its own ink line (62.935 vs 63.07), so this box
+          starts 59.68 - 0.135 = 59.55.  b6 starts 0.062 above its line, so the
+          original annotations wobble about +-0.07 either way - do not read the
+          last decimal as precision the annotations themselves do not have.
+     width: 52.55 - 33.07 = 19.48                                                 */
+  '2025_EOY_StHilda_open_Q17': {
+    b1: {x:33.07, y:59.55, w:19.48, h:1.2, label:'Q21', opt:'[ show / showed ]'},
+    b6: {label:'Q22'},
+    b7: {label:'Q23'},
+    b8: {label:'Q24'}
+  },
+  /* 2021 NanHua CA2 - Editing, measured 2026-11-19 on the DEPLOYED scan
+     (1121 x 1403) with in-page canvas ink profiling.  Each editing blank is a
+     printed number "(NN)" followed by its square; the numbers sit on text
+     lines at y 15.68(25) 23.73(26) 39.42(27) 47.26(28) 55.02(29) 62.51(30).
+     Stored boxes 25/26/27/29 start just right of their number (offset
+     -0.07..-0.15 above the line, w ~25.8).  But (28) sat at y 53.39 - on the
+     (29) line, overlapping the (29) box - and (30) sat at y 66.22, on the
+     text line BELOW its number, so both printed squares stood empty.
+     Both moved back to sit right after their own number, with the same
+     geometry as the healthy siblings:  x = number end + ~1.7, w 25.8,
+     y = line - 0.13.  b1 (blank "1") is deliberately left alone: this page
+     prints no square for it - its square is on another page of the paper,
+     and parking it somewhere here would only hide that data gap. */
+  '2021_CA2_NanHua_open_Q1': {
+    b5: {x:10.9, y:47.13, w:25.8},   /* (28) */
+    b7: {x:11.2, y:62.38, w:25.8}    /* (30) */
+  }
+};
 function shotInputHtml(q, o, i, interactive){
-  const st = 'left:'+Number(o.x||0)+'%;top:'+Number(o.y||0)+'%;width:'+Number(o.w||10)+'%;height:'+Number(o.h||4)+'%';
   const qid = o.owner || q.id;
   const part = o.part || ('o'+i);
+  const fx = (BOX_FIX[qid] || {})[part] || {};
+  const g = {
+    x: fx.x !== undefined ? fx.x : Number(o.x||0),
+    y: fx.y !== undefined ? fx.y : Number(o.y||0),
+    w: fx.w !== undefined ? fx.w : Number(o.w||10),
+    h: fx.h !== undefined ? fx.h : Number(o.h||4)
+  };
+  /* A printed editing square measures about 3% of the scan tall. */
+  if (fx.h === undefined && q && q.visual && q.visual.mode === 'editing' && g.h < 2.9) g.h = 3.0;
+  const st = 'left:'+g.x+'%;top:'+g.y+'%;width:'+g.w+'%;height:'+g.h+'%';
   /* ONLY the hidden printable copy uses a decoration.  Every on-screen view
      gets a real, focusable text input - a dead <div> here was the reason
      students could not type on the scan at all. */
+  /* a corrected label / option text overrides the stored one (see BOX_FIX) */
+  const lbl = fx.label !== undefined ? fx.label : (o.label || '');
+  const opt = fx.opt  !== undefined ? fx.opt   : (o.opt_text || '');
   if (interactive === 'print')
-    return '<div class="shot-input shot-input-empty" style="'+st+'" title="'+esc(o.label||'')+'"></div>';
+    return '<div class="shot-input shot-input-empty" style="'+st+'" title="'+esc(lbl)+'"></div>';
   /* grammar-cloze inline options: the bracket [ offer / offers ] carries the
      choices - show them as the input's placeholder so the student still sees the
      options while the box sits over the bracket. */
-  const ph = o.opt_text ? ' placeholder="'+esc(o.opt_text)+'"' : '';
+  const ph = opt ? ' placeholder="'+esc(opt)+'"' : '';
   return '<input class="shot-input" type="text" style="'+st+'" data-field="vpart" data-qid="'+esc(qid)+
          '" data-part="'+esc(part)+'" value="'+esc(visParts(qid)[part] || '')+'"'+
-         ph+' aria-label="'+esc(o.label || 'Answer')+' answer box">';
+         ph+' aria-label="'+esc(lbl || 'Answer')+' answer box">';
 }
 /* the blanks that belong to THIS question (a cloze passage shows the blanks of
    the whole passage, but only the one of this question is this answer) */
