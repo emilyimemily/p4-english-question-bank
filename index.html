@@ -141,6 +141,10 @@ input[type="search"]:focus,select:focus,textarea:focus,.num-input:focus{border-c
 .shot-input{position:absolute;box-sizing:border-box;border:1.5px solid #2f5bd7;border-radius:4px;background:rgba(255,255,255,.96);color:#132a5e;font-size:13px;line-height:1.2;padding:1px 5px;min-width:26px;min-height:22px;box-shadow:0 0 0 2px rgba(47,91,215,.14);z-index:3}
 .shot-input:focus{outline:2px solid #2f5bd7;background:#fff}
 .shot-input-empty{background:transparent;border:1px dashed #7185bb;box-shadow:none;min-height:16px}
+/* Editing boxes are the printed square: the measured height must beat the
+   touch-target minimum, or a short box covers the line under it. */
+.shot-input-compact{min-height:0;min-width:0;font-size:12px;line-height:1;padding:0 2px;
+                    background:rgba(255,255,255,.94)}
 /* word box above a cloze passage - text, not part of the screenshot */
 .word-bank{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;background:var(--bg);padding:10px 12px;margin:10px 0 6px;max-width:900px}
 .wb-head{font-size:12px;font-weight:700;color:var(--accent-dark);margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -321,6 +325,7 @@ input[type="search"]:focus,select:focus,textarea:focus,.num-input:focus{border-c
   /* answer boxes on the scan: big enough to tap, 16px stops iOS zoom-on-focus */
   .shot-input{min-height:28px;min-width:42px;font-size:16px;padding:1px 4px;touch-action:manipulation;
               background:rgba(255,255,255,.52)}
+  .shot-input-compact{min-height:0;min-width:0;font-size:12px;padding:0 2px}
   .shot-input:focus{background:#fff;z-index:6}
   /* the mirrored "Your answer" row is the comfortable way to type on a phone */
   .vis-table input[type="text"]{font-size:16px;min-height:36px}
@@ -481,24 +486,8 @@ const BOX_FIX = {
     b7: {label:'Q23'},
     b8: {label:'Q24'}
   },
-  /* 2021 NanHua CA2 - Editing, measured 2026-11-19 on the DEPLOYED scan
-     (1121 x 1403) with in-page canvas ink profiling.  Each editing blank is a
-     printed number "(NN)" followed by its square; the numbers sit on text
-     lines at y 15.68(25) 23.73(26) 39.42(27) 47.26(28) 55.02(29) 62.51(30).
-     Stored boxes 25/26/27/29 start just right of their number (offset
-     -0.07..-0.15 above the line, w ~25.8).  But (28) sat at y 53.39 - on the
-     (29) line, overlapping the (29) box - and (30) sat at y 66.22, on the
-     text line BELOW its number, so both printed squares stood empty.
-     Both moved back to sit right after their own number, with the same
-     geometry as the healthy siblings:  x = number end + ~1.7, w 25.8,
-     y = line - 0.13.  b1 (blank "1") is deliberately left alone: this page
-     prints no square for it - its square is on another page of the paper,
-     and parking it somewhere here would only hide that data gap. */
-  '2021_CA2_NanHua_open_Q1': {
-    b5: {x:10.9, y:47.13, w:25.8},   /* (28) */
-    b7: {x:11.2, y:62.38, w:25.8}    /* (30) */
-  }
 };
+
 function shotInputHtml(q, o, i, interactive){
   const qid = o.owner || q.id;
   const part = o.part || ('o'+i);
@@ -509,8 +498,12 @@ function shotInputHtml(q, o, i, interactive){
     w: fx.w !== undefined ? fx.w : Number(o.w||10),
     h: fx.h !== undefined ? fx.h : Number(o.h||4)
   };
-  /* A printed editing square measures about 3% of the scan tall. */
-  if (fx.h === undefined && q && q.visual && q.visual.mode === 'editing' && g.h < 2.9) g.h = 3.0;
+  /* Editing boxes are the printed square itself - every side is measured off
+     the scan, so nothing may stretch them afterwards.  The compact class keeps
+     the phone touch-target minimum from inflating a short box over the line
+     below it. */
+  const isEdit = !!(q && q.visual && q.visual.mode === 'editing');
+  const compact = (o.compact || isEdit) ? ' shot-input-compact' : '';
   const st = 'left:'+g.x+'%;top:'+g.y+'%;width:'+g.w+'%;height:'+g.h+'%';
   /* ONLY the hidden printable copy uses a decoration.  Every on-screen view
      gets a real, focusable text input - a dead <div> here was the reason
@@ -519,12 +512,12 @@ function shotInputHtml(q, o, i, interactive){
   const lbl = fx.label !== undefined ? fx.label : (o.label || '');
   const opt = fx.opt  !== undefined ? fx.opt   : (o.opt_text || '');
   if (interactive === 'print')
-    return '<div class="shot-input shot-input-empty" style="'+st+'" title="'+esc(lbl)+'"></div>';
+    return '<div class="shot-input shot-input-empty'+compact+'" style="'+st+'" title="'+esc(lbl)+'"></div>';
   /* grammar-cloze inline options: the bracket [ offer / offers ] carries the
      choices - show them as the input's placeholder so the student still sees the
      options while the box sits over the bracket. */
   const ph = opt ? ' placeholder="'+esc(opt)+'"' : '';
-  return '<input class="shot-input" type="text" style="'+st+'" data-field="vpart" data-qid="'+esc(qid)+
+  return '<input class="shot-input'+compact+'" type="text" style="'+st+'" data-field="vpart" data-qid="'+esc(qid)+
          '" data-part="'+esc(part)+'" value="'+esc(visParts(qid)[part] || '')+'"'+
          ph+' aria-label="'+esc(lbl || 'Answer')+' answer box">';
 }
