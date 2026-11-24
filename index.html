@@ -1140,6 +1140,15 @@ function answerAuditHtml(q, compact){
       '<span class="audit-note">Original answer-sheet text: '+esc(String(a.official || ''))+'</span></div>';
   }
   if (compact) return '';
+  if (st === 'ai_filled'){
+    return '<div class="ans-audit fix"><b>&#9998; Partly from the key, partly answered by AI</b>'+
+      paperRow + aiRow +
+      (note ? '<span class="audit-note">'+esc(note)+'</span>' : '')+
+      (src  ? '<span class="audit-note">Source: '+esc(src)+'</span>' : '')+
+      '<span class="audit-note">Blanks listed under '+esc(auditAuthor(a, 'paper'))+
+      ' come from the answer sheet; the rest were worked out from the passage by '+
+      esc(auditAuthor(a, 'ai'))+', so they are model answers rather than a teacher\'s marking.</span></div>';
+  }
   if (st === 'ai_solved'){
     return '<div class="ans-audit fix"><b>&#9998; Answered by AI - the paper gives no key here</b>'+
       aiRow +
