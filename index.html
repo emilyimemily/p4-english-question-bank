@@ -240,6 +240,15 @@ input[type="search"]:focus,select:focus,textarea:focus,.num-input:focus{border-c
 .ans-audit.mute{background:var(--bg);color:var(--muted)}
 .ans-audit .audit-note{display:block;margin-top:4px}
 .ans-audit .audit-ind{display:block;margin-top:5px;font-weight:700}
+/* Who answered what: one row per author, so the paper's key and the AI's own
+   working are never mixed up. */
+.ans-audit .audit-row{display:flex;align-items:baseline;gap:7px;margin-top:5px}
+.ans-audit .audit-tag{flex:0 0 auto;padding:1px 7px;border-radius:999px;font-size:10.5px;
+  font-weight:700;letter-spacing:.2px;white-space:nowrap;background:var(--card);
+  border:1px solid currentColor;color:inherit;opacity:.8}
+.ans-audit .audit-tag.ai{background:var(--accent-soft);border-color:var(--accent);
+  color:var(--accent-dark);opacity:1}
+.ans-audit .audit-val{font-weight:700;word-break:break-word}
 .ans-audit-chip{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:6px;
   font-size:11px;font-weight:700;background:var(--amber-soft);color:#8a5a09}
 /* ===== MCQ option meanings (English-English) ===== */
@@ -439,8 +448,7 @@ function syncVisual(qid){
     el.value = parts[part];
   });
   activeVisualParts()[qid] = parts;
-  activeAnswers()[qid] = Object.keys(parts).sort(partSort)
-    .filter(function(k){ return k.charAt(0) !== '_'; })
+  activeAnswers()[qid] = orderedPartKeys(questionById(qid), parts)
     .map(function(k){ return parts[k]; }).filter(Boolean).join(' ');
 }
 /* blank parts are named b1, b2, ... - they must sort numerically, not as text */
@@ -451,6 +459,25 @@ function partSort(a, b){
     return parseInt(ra[2], 10) - parseInt(rb[2], 10);
   }
   return a < b ? -1 : (a > b ? 1 : 0);
+}
+/* A passage is marked blank by blank, so the boxes have to be read in the
+   order the blanks are PRINTED.  The stored part ids are just handles - on a
+   few passages they were recorded out of order (28, 27, 22, ...) - so sort by
+   the blank number printed on the scan, and fall back to the part name only
+   when a box has no blank number (editing squares, tables). */
+function orderedPartKeys(q, parts){
+  const keys = Object.keys(parts).filter(function(k){ return k.charAt(0) !== '_'; });
+  const v = q ? vis(q) : null;
+  const map = {};
+  if (v && Array.isArray(v.overlays)) v.overlays.forEach(function(o){
+    if (o && o.part && o.blank_no !== undefined && o.blank_no !== null && o.blank_no !== '')
+      map[o.part] = String(o.blank_no);
+  });
+  const numeric = keys.length > 0 && keys.every(function(k){
+    return /^\d+$/.test(String(map[k] || ''));
+  });
+  if (!numeric) return keys.sort(partSort);
+  return keys.sort(function(a, b){ return parseInt(map[a], 10) - parseInt(map[b], 10); });
 }
 /* Answer-box geometry fixes.
    Two separate defects were found on the Editing questions:
@@ -467,37 +494,14 @@ function partSort(a, b){
    BOX_FIX is intentionally left empty until those numbers are measured:
    a guessed y would move the box somewhere else that is also wrong. */
 const BOX_FIX = {
-  /* 2025 StHilda EOY - Grammar Cloze Q17, blanks (17)-(24), scan 1119 x 3073.
-     The four boxes of Passage 2 had been numbered one step out of place:
-       b1 sat on the word box at the TOP of the page and carried (24)
-       b7 sat on the printed [ need / needs ] bracket - that is blank (23)
-       b8 sat on the printed [ is / are ] bracket      - that is blank (24)
-     so blank (21), whose printed [ show / showed ] bracket is on the text
-     line at y 59.68-60.40, had no box at all, and the top of the page had a
-     box nobody had asked for. b1 is moved down onto that bracket, which adds
-     the missing box and clears the stray one in a single step; the labels
-     below are set to the number actually printed on the paper.
-     Geometry measured from the scan (1119 x 3073) by column ink profile.
-     The text line carrying "(21) [ show / showed ]" has ink at y 59.68-60.40,
-     and on that line the option group runs x 33.07-52.55 - its five pieces are
-     33.07("[") 35.12-41.20("show") 42.72-44.59("/") 46.20-49.69("showed")
-     51.21-52.55("]"). The neighbouring boxes are drawn exactly bracket-edge
-     to bracket-edge (b7 spans 17.43-30.74 over its own "[ need / needs ]"),
-     so this box takes the same treatment: top sits 0.13 above the ink line,
-     height 1.2, width = the option group.
-     top: b7 starts 0.135 above its own ink line (62.935 vs 63.07), so this box
-          starts 59.68 - 0.135 = 59.55.  b6 starts 0.062 above its line, so the
-          original annotations wobble about +-0.07 either way - do not read the
-          last decimal as precision the annotations themselves do not have.
-     width: 52.55 - 33.07 = 19.48                                                 */
-  '2025_EOY_StHilda_open_Q17': {
-    b1: {x:33.07, y:59.55, w:19.48, h:1.2, label:'Q21', opt:'[ show / showed ]'},
-    b6: {label:'Q22'},
-    b7: {label:'Q23'},
-    b8: {label:'Q24'}
-  },
+  /* No per-question overrides are needed at the moment.  The St Hilda EOY 2025
+     Grammar Cloze boxes used to be patched here because their stored parts were
+     numbered one step out of place; those numbers are now measured on the scan
+     and stored on the boxes themselves (blank 21 finally has its own box, and
+     the stray box that sat on the word box at the top of the page is gone).
+     Grading no longer depends on part numbering either - it reads the boxes in
+     printed blank order (see orderedPartKeys). */
 };
-
 function shotInputHtml(q, o, i, interactive){
   const qid = o.owner || q.id;
   const part = o.part || ('o'+i);
@@ -1076,6 +1080,32 @@ function referenceAnswerText(q){
 function auditOf(q){
   return (q && q.answer_audit && typeof q.answer_audit === 'object') ? q.answer_audit : null;
 }
+/* Every answer on the site names its author.  The paper's printed key and the
+   AI's own working are separate rows, so nobody has to guess where a value
+   came from. */
+var AUDIT_PAPER_BY = "the paper's answer key";
+var AUDIT_AI_BY = 'AI (WorkBuddy)';
+function auditAuthor(a, which){
+  var a2 = a || {};
+  if (which === 'ai') return String(a2.independent_by || AUDIT_AI_BY).trim() || AUDIT_AI_BY;
+  return String(a2.official_by || AUDIT_PAPER_BY).trim() || AUDIT_PAPER_BY;
+}
+function auditValText(q, value){
+  var v = String(value === null || value === undefined ? '' : value).trim();
+  if (!v) return '';
+  /* A bare option letter/number means nothing on its own - spell it out. */
+  if (hasOptions(q) && /^[1-4A-F]{1,2}$/.test(v)){
+    var t = String((q.options || {})[v] || '').trim();
+    return t ? ('Option ' + v + ' - ' + t) : ('Option ' + v);
+  }
+  return v;
+}
+function auditRowHtml(q, who, value, isAI){
+  var v = auditValText(q, value);
+  if (!v) return '';
+  return '<span class="audit-row"><span class="audit-tag'+(isAI ? ' ai' : '')+'">'+esc(who)+
+    '</span><span class="audit-val">'+esc(v)+'</span></span>';
+}
 function answerAuditHtml(q, compact){
   const a = auditOf(q);
   if (!a) return '';
@@ -1083,14 +1113,23 @@ function answerAuditHtml(q, compact){
   const note = String(a.note || '').trim();
   const mine = String(a.independent || '').trim();
   const src  = String(a.source || '').trim();
+  const paperRow = auditRowHtml(q, auditAuthor(a, 'paper'), a.official, false);
+  const aiRow    = auditRowHtml(q, auditAuthor(a, 'ai'), mine, true);
   if (st === 'questionable'){
     if (compact)
-      return '<span class="ans-audit-chip" title="'+esc(note)+'">&#9888; Questionable</span>';
-    return '<div class="ans-audit warn"><b>&#9888; Questionable answer - check both versions</b>'+
+      return '<span class="ans-audit-chip" title="'+esc(note)+'">&#9888; Two answers</span>';
+    /* Only claim "both are accepted" when the marker really does accept the
+       paper's key as an alternative. */
+    const bothAccepted = hasOptions(q) && String(q.answer_alt || '').trim() !== '';
+    const usedByAI = /^AI/i.test(String(q.answer_by || ''));
+    return '<div class="ans-audit warn"><b>&#9888; '+
+      (bothAccepted ? 'Two answers for this item - both are accepted'
+                    : 'Two answers recorded for this item')+'</b>'+
+      paperRow + aiRow +
       (note ? '<span class="audit-note">'+esc(note)+'</span>' : '')+
-      (mine ? '<span class="audit-ind">Independent answer: option '+esc(mine)+(q.options && q.options[mine] ? ' ('+esc(String(q.options[mine]))+')' : '')+'</span>' : '')+
       (src  ? '<span class="audit-note">Source: '+esc(src)+'</span>' : '')+
-      '<span class="audit-note">Both the paper\'s key and the independent answer are accepted when marking.</span>'+
+      (bothAccepted ? '<span class="audit-note">The paper\'s key and the AI\'s own answer are both marked correct.</span>'
+                    : (usedByAI ? '<span class="audit-note">Marking uses the AI\'s answer, because the recorded key does not fit the passage.</span>' : ''))+
       '</div>';
   }
   if (st === 'ocr_fixed'){
@@ -1101,15 +1140,23 @@ function answerAuditHtml(q, compact){
       '<span class="audit-note">Original answer-sheet text: '+esc(String(a.official || ''))+'</span></div>';
   }
   if (compact) return '';
+  if (st === 'ai_solved'){
+    return '<div class="ans-audit fix"><b>&#9998; Answered by AI - the paper gives no key here</b>'+
+      aiRow +
+      (note ? '<span class="audit-note">'+esc(note)+'</span>' : '')+
+      '<span class="audit-note">This value was worked out from the passage by '+
+      esc(auditAuthor(a, 'ai'))+'; it is not a teacher\'s marking. Treat it as a model answer '+
+      'and check the source scan if in doubt.</span></div>';
+  }
   if (st === 'verified'){
     if (mine){
-      const _ot = (q.options && q.options[mine]) ? ' ('+esc(String(q.options[mine]))+')' : '';
-      return '<div class="ans-audit ok"><b>&#10003; Independently checked</b>'+
-        '<span class="audit-ind">AI\'s own answer: option '+esc(mine)+_ot+'</span>'+
-        '<span class="audit-note">This matches the paper\'s printed answer key.</span></div>';
+      return '<div class="ans-audit ok"><b>&#10003; Checked twice - the two answers agree</b>'+
+        paperRow + aiRow +
+        '<span class="audit-note">The AI re-solved this item on its own and reached the same answer as the answer sheet.</span></div>';
     }
     return '<div class="ans-audit ok"><b>&#10003; From the paper\'s answer key</b>'+
-      '<span class="audit-note">AI has not yet independently re-solved this item; check the source scan if unsure.</span></div>';
+      '<span class="audit-note">This value comes from '+esc(auditAuthor(a, 'paper'))+
+      '; AI has not re-solved it yet, so check the source scan if unsure.</span></div>';
   }
   if (st === 'unverifiable')
     return '<div class="ans-audit mute"><b>&#9678; Independent check inconclusive</b>'+
@@ -1162,8 +1209,7 @@ function gradeQuestion(q, answer, parts){
   /* Cloze / editing / synthesis: one mark for each blank on the scan.  Compare
      the box values with the official answers position by position, so a
      passage with three blanks really gives Score 2 / 3 rather than 0 or all. */
-  const vals = parts ? Object.keys(parts).sort(partSort)
-      .filter(function(k){ return k.charAt(0) !== '_'; })
+  const vals = parts ? orderedPartKeys(q, parts)
       .map(function(k){ return String(parts[k] || '').trim(); })
       .filter(Boolean) : [];
   /* Word order: the boxes are the printed writing lines of ONE sentence, so the
