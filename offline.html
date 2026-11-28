@@ -592,7 +592,7 @@ function visualImageHtml(q, which, interactive){
            (withBoxes ? pic
                       : '<a class="shot-link" href="'+esc(src)+'" target="_blank" rel="noopener">'+pic+'</a>')+
            boxes + surface + '</div>'+
-           (withBoxes && !barePassage ? '<a class="shot-open" href="'+esc(src)+'" target="_blank" rel="noopener">Open this scan full size</a>' : '');
+           (withBoxes && !barePassage && interactive !== 'print' ? '<a class="shot-open" href="'+esc(src)+'" target="_blank" rel="noopener">Open this scan full size</a>' : '');
   });
   return out;
 }
