@@ -17,7 +17,7 @@ assert html.count(MARKER) == 1, 'marker not unique'
 assert 'window.P4_EMBEDDED_BANK = {' not in html, 'index.html already carries a bank'
 
 out = html.replace(MARKER, 'window.P4_EMBEDDED_BANK = ' + payload + ';\n' + MARKER, 1)
-io.open(OUT, 'w', encoding='utf-8').write(out)
+io.open(OUT, 'w', encoding='utf-8', newline='\n').write(out)
 
 # read it back and make sure the data parses
 chk = io.open(OUT, encoding='utf-8').read()
